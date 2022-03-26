@@ -6,27 +6,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&family=PT+Sans&family=Source+Sans+Pro&display=swap');
+    </style>
     <script src="script.js"></script>
   </head>
-  <body>
-    <div class="wrapper">
-      <div class="input-group">
-        <label for="nama-mata-kuliah">Nama Mata Kuliah</label>
-        <input type="text" name="Nama Mata Kuliah" id="nama-mata-kuliah" />
+  <body class="flex flex-col place-content-center place-items-center">
+    <svg class="hidden" version="2.0">
+      <defs>
+        <symbol id="trash-bin" viewbox="0 0 256 256">
+          <path
+            d="m161 22c1 1 2 2 3 3 1 2 1 2 0 4-1 1-2 2-2 3-2 1-62 1-64 0-1 0-2-2-2-3-1-2-1-2 0-4 2-4 1-4 35-4 28 0 30 0 32 1zm59 35c3 1 4 5 2 8-1 2-3 3-13 3l-9 0 0 80c0 89 0 83-4 85-3 1-132 1-135 0-4-2-4 4-4-85l0-80-9 0c-10 0-12 0-13-3-1-2-1-5 1-7l2-2 91 0c81 0 91 0 92 1zm-151 88 0 77 59 0 59 0 0-77 0-77-59 0-59 0 0 77zm81-39 2 2 0 38 0 38-2 2c-2 2-6 2-8 0l-2-2 0-38 0-38 2-2c1-1 2-2 4-2 2 0 3 0 4 2zm-36 0 2 2 0 38 0 38-2 2c-2 2-6 2-8 0l-2-2 0-38 0-38 2-2c1-1 2-2 4-2 2 0 3 0 4 2z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+    <header class="my-32 flex place-content-center place-items-center flex-col">
+      <div class="font-PT font-medium text-6xl text-primary mb-4 text-center">
+        GPA Calculator
       </div>
-      <div class="input-group">
-        <label for="sks">Jumlah SKS</label>
-        <input type="number" name="Jumlah SKS" id="sks" />
+      <div
+        class="text-primary font-Josefin font-medium tracking-wider text-xl text-center"
+      >
+        Berapakah GPA kamu pada Semester ini?
       </div>
-      <div class="input-group">
-        <label for="nilai-angka">Nilai Dalam Bentuk Angka</label>
-        <input type="number" name="Nilai Angka" id="nilai-angka" />
-      </div>
+    </header>
 
-      <button type="submit" onclick="addNilai();">Submit</button>
-      <button type="submit" onclick="renderNilai();">Tampilkan Nilai</button>
-    </div>
+    <main class="flex flex-col w-[56%]">
+      <div
+        class="header-table flex h-16 px-4 place-items-center border-y-secondary border-y-[1px] border-opacity-50"
+      >
+        <div
+          class="font-PT font-bold text-base text-primary text-center w-[40%]"
+        >
+          Mata Kuliah
+        </div>
+        <div
+          class="font-PT font-bold text-base text-primary text-center w-[25%]"
+        >
+          SKS
+        </div>
+        <div
+          class="font-PT font-bold text-base text-primary text-center w-[25%]"
+        >
+          Nilai
+        </div>
+        <div
+          class="font-PT font-bold text-base text-primary text-center w-[10%]"
+        >
+          Action
+        </div>
+      </div>
+      <div
+        class="item-table flex h-20 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
+      >
+        <div
+          class="font-Source text-base text-primary opacity-80 text-left w-[40%]"
+        >
+          Mata Kuliah
+        </div>
+        <div
+          class="font-Source text-base text-primary opacity-80 text-left w-[25%]"
+        >
+          <div
+            id="nilai"
+            class="select-menu flex place-content-center place-items-center h-8"
+          >
+            <div class="relative w-[80%]">
+              <button
+                type="button"
+                class="flex w-full items-center justify-between rounded bg-white p-2 ring-1 ring-opacity-50 ring-secondary"
+                onclick="toggleSelect(this.parentNode)"
+              >
+                <span>Pilih SKS</span>
+                <svg
+                  class="h-6 w-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
 
-    <div class="list-nilai"></div>
+              <ul
+                class="z-2 absolute mt-2 w-full rounded bg-white ring-1 ring-gray-300 hidden"
+              >
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  Python
+                </li>
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  PHP
+                </li>
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  C#
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="font-Source text-base text-primary opacity-80 text-left w-[25%]"
+        >
+          <div
+            id="nilai"
+            class="select-menu flex place-content-center place-items-center h-8"
+          >
+            <div class="relative w-[80%]">
+              <button
+                type="button"
+                class="flex w-full items-center justify-between rounded bg-white p-2 ring-1 ring-opacity-50 ring-secondary"
+                onclick="toggleSelect(this.parentNode)"
+              >
+                <span>Pilih Nilai</span>
+                <svg
+                  class="h-6 w-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              <ul
+                class="z-2 absolute mt-2 w-full rounded bg-white ring-1 ring-gray-300 hidden"
+              >
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  Python
+                </li>
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  PHP
+                </li>
+                <li
+                  onclick="setSelectValue(this)"
+                  class="cursor-pointer select-none p-2 hover:bg-gray-200"
+                >
+                  C#
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="font-Source text-base text-primary opacity-80 text-left w-[10%] flex place-content-center"
+        >
+          <svg fill="#424242" width="40" height="40" version="2.0">
+            <use href="#trash-bin" />
+          </svg>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
