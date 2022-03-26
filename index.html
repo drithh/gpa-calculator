@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="input-group">
+        <label for="nama-mata-kuliah">Nama Mata Kuliah</label>
+        <input type="text" name="Nama Mata Kuliah" id="nama-mata-kuliah" />
+      </div>
+      <div class="input-group">
+        <label for="sks">Jumlah SKS</label>
+        <input type="number" name="Jumlah SKS" id="sks" />
+      </div>
+      <div class="input-group">
+        <label for="nilai-angka">Nilai Dalam Bentuk Angka</label>
+        <input type="number" name="Nilai Angka" id="nilai-angka" />
+      </div>
+
+      <button type="submit" onclick="addNilai();">Submit</button>
+      <button type="submit" onclick="renderNilai();">Tampilkan Nilai</button>
+    </div>
+
+    <div class="list-nilai"></div>
+  </body>
+</html>
