@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>GPA Calculator</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&family=PT+Sans&family=Source+Sans+Pro&display=swap');
@@ -26,7 +26,7 @@
         </symbol>
       </defs>
     </svg>
-    <header class="my-32 flex place-content-center place-items-center flex-col">
+    <header class="mt-20 flex place-content-center place-items-center flex-col">
       <div class="font-PT font-medium text-6xl text-primary mb-4 text-center">
         GPA Calculator
       </div>
@@ -37,7 +37,32 @@
       </div>
     </header>
 
-    <main class="flex flex-col w-[56%]">
+    <main class="flex flex-col w-[90%] max-w-[1070px]">
+      <div
+        class="gpa-wrapper my-20 h-60 flex place-content-center relative place-items-center"
+      >
+        <div id="gpa" class="text-center font-PT text-7xl text-primary">0</div>
+        <div class="absolute progess-bar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            width="220px"
+            height="220px"
+            class="flex place-content-center -rotate-90"
+          >
+            <circle
+              id="progress-bar"
+              class="fill-transparent stroke-secondary opacity-70 stroke-[0.2rem]"
+              cx="110"
+              cy="110"
+              r="100"
+              stroke-linecap="round"
+              stroke-dasharray="628"
+              stroke-dashoffset="628"
+            />
+          </svg>
+        </div>
+      </div>
       <div
         class="header-table flex h-16 px-4 place-items-center border-y-secondary border-y-[1px] border-opacity-50"
       >
@@ -64,7 +89,7 @@
       </div>
       <div class="table-body"></div>
       <div
-        class="item-table flex h-20 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
+        class="add-row mb-60 flex h-20 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
       >
         <div
           class="font-Source text-base text-primary opacity-80 text-left w-[40%]"

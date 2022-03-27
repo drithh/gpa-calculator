@@ -1,5 +1,3 @@
-let nilai = new Array();
-
 const toggleSelect = (selectMenu) => {
   const button = selectMenu.querySelector('button');
   const list = selectMenu.querySelector('ul');
@@ -27,29 +25,26 @@ const addRow = () => {
     alert('Nilai Tidak Boleh Kosong');
   } else {
     const rowData = {
-      nama: document.querySelector('#mata-kuliah').value,
+      nama: nama.value,
       sks: sks.innerHTML.replace(/\s/g, ''),
-      nilai: nilai.innerHTML.replace(/\s/g, ''),
+      nilai: angkaKeHuruf(nilai.innerHTML.replace(/\s/g, '')),
     };
 
     sks.innerHTML = 'Pilih SKS';
     nilai.innerHTML = 'Pilih Nilai';
+    nama.value = '';
 
     const row = setRow(rowData);
     document.querySelector('.table-body').innerHTML += row;
 
-    console.log(rowData);
+    updateGPA();
   }
-};
-
-const deleteRow = (row) => {
-  row.parentNode.parentNode.remove();
 };
 
 const setRow = (rowData) => {
   return `
     <div
-      class="item-table flex h-20 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
+      class="item-table flex h-16 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
     >
       <div
         class="font-Source text-base text-primary opacity-80 text-center w-[40%]"
@@ -82,42 +77,88 @@ const setRow = (rowData) => {
   `;
 };
 
+const deleteRow = (row) => {
+  row.parentNode.parentNode.remove();
+  updateGPA();
+};
+
 const setSelectValue = (el) => {
   const selectMenu = el.parentNode.parentNode;
   selectMenu.querySelector('span').innerHTML = el.innerHTML;
   toggleSelect(selectMenu);
 };
 
-const addNilai = () => {
-  const wrapper = document.querySelector('.wrapper');
+const angkaKeHuruf = (nilai) => {
+  return String.fromCharCode(nilai * -1 + 69);
+};
 
-  const nama = wrapper.querySelector('#nama-mata-kuliah').value;
+const hurufKeAngka = (nilai) => {
+  return (nilai.charCodeAt() - 69) * -1;
+};
 
-  const sks = wrapper.querySelector('#sks').value;
-  const nilaiAngka = wrapper.querySelector('#nilai-angka').value;
+let animateGPA;
 
-  if (nilaiAngka >= 0 && nilaiAngka <= 4) {
-    nilai.push({
-      nama: nama,
-      sks: sks,
-      nilai: convertNilai(nilaiAngka),
-    });
+const updateGPA = () => {
+  const tableBody = document.querySelector('.table-body');
+  const rows = tableBody.querySelectorAll('.item-table');
+  let totalSks = 0;
+  let totalNilai = 0;
+  rows.forEach((row) => {
+    const sks = row
+      .querySelector('.text-center')
+      .nextElementSibling.innerHTML.replace(/\s/g, '');
+    const nilai = hurufKeAngka(
+      row
+        .querySelector('.text-center')
+        .nextElementSibling.nextElementSibling.innerHTML.replace(/\s/g, '')
+    );
 
-    console.log(nilai);
-  } else {
-    alert('Nilai Angka Tidak Valid');
+    totalSks += parseInt(sks);
+    totalNilai += parseInt(nilai) * parseInt(sks);
+  });
+
+  const gpa = document.querySelector('#gpa');
+
+  let targetGPA = totalSks == 0 ? 0 : (totalNilai / totalSks).toFixed(2);
+  if (targetGPA != gpa.innerHTML) {
+    clearTimeout(animateGPA);
+    animateGPA = setTimeout(
+      setGPA,
+      getSleep(targetGPA - gpa.innerHTML),
+      targetGPA
+    );
   }
 };
 
-const convertNilai = (nilai) => {
-  const nilaiHuruf = ['E', 'D', 'C', 'B', 'A'];
-  return nilaiHuruf[nilai];
+const getSleep = (number) => {
+  return 8 / number / (number > 1 ? Math.pow(number, 10) : 1);
 };
 
-const renderNilai = () => {
-  nilai.forEach((item) => {
-    const list = document.createElement('li');
-    list.innerHTML = `${item.nama} - ${item.sks} - ${item.nilai}`;
-    document.querySelector('.list-nilai').appendChild(list);
-  });
+const setGPA = (targetGPA) => {
+  gpa = document.querySelector('#gpa');
+  let currentGPA = gpa.innerHTML;
+  let progressBar = document.querySelector('#progress-bar');
+  progressBar.setAttribute(
+    'stroke-dashoffset',
+    (628 - currentGPA * (628 / 4)).toString()
+  );
+  if (targetGPA > currentGPA) {
+    gpa.innerHTML = (parseFloat(currentGPA) + 0.01).toFixed(2);
+    if (targetGPA > gpa.innerHTML) {
+      animateGPA = setTimeout(
+        setGPA,
+        getSleep(targetGPA - gpa.innerHTML),
+        targetGPA
+      );
+    }
+  } else {
+    gpa.innerHTML = (parseFloat(currentGPA) - 0.01).toFixed(2);
+    if (targetGPA < gpa.innerHTML) {
+      animateGPA = setTimeout(
+        setGPA,
+        getSleep(gpa.innerHTML - targetGPA),
+        targetGPA
+      );
+    }
+  }
 };
