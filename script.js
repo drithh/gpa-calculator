@@ -140,7 +140,7 @@ const setGPA = (targetGPA) => {
   let progressBar = document.querySelector('#progress-bar');
   progressBar.setAttribute(
     'stroke-dashoffset',
-    (628 - currentGPA * (628 / 4)).toString()
+    (630 - currentGPA * (632 / 4)).toString()
   );
   if (targetGPA > currentGPA) {
     gpa.innerHTML = (parseFloat(currentGPA) + 0.01).toFixed(2);
