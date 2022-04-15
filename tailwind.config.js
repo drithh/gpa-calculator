@@ -2,6 +2,22 @@ module.exports = {
   content: ['./*.{html,js}'],
   theme: {
     extend: {
+      animation: {
+        'height-enter': 'expand 0.5s linear',
+        'height-exit': 'shrink 1s linear',
+      },
+      keyframes: {
+        expand: {
+          '0%': { height: '0px', opacity: 0 },
+          '70%': { height: '72px' },
+          '100%': { height: '64px', opacity: 1 },
+        },
+        shrink: {
+          '0%': { height: '64px' },
+          '40%': { height: '72px' },
+          '70%, 100%': { height: '0px', opacity: 0 },
+        },
+      },
       fontFamily: {
         PT: ['PT Sans', 'sans-serif'],
         Josefin: ['Josefin Sans', 'sans-serif'],

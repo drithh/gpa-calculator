@@ -11,7 +11,9 @@
     </style>
     <script src="script.js"></script>
   </head>
-  <body class="flex flex-col place-content-center place-items-center">
+  <body
+    class="flex flex-col place-content-center place-items-center min-w-[768px]"
+  >
     <svg class="hidden" version="2.0">
       <defs>
         <symbol id="trash-bin" viewbox="0 0 256 256">
@@ -37,11 +39,13 @@
       </div>
     </header>
 
-    <main class="flex flex-col w-[90%] max-w-[1070px]">
+    <main class="flex flex-col lg:w-[90%] w-full max-w-[1070px]">
       <div
-        class="gpa-wrapper my-20 h-60 flex place-content-center relative place-items-center"
+        class="gpa-wrapper my-20 h-60 flex place-content-center relative place-items-center w-fit mx-auto"
       >
-        <div id="gpa" class="text-center font-PT text-7xl text-primary">0</div>
+        <div id="gpa" class="text-center font-PT text-7xl text-primary">
+          0.00
+        </div>
         <div class="absolute progess-bar">
           <svg
             xmlns="http://www.w3.org/2000/svg"

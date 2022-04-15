@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -476,9 +476,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: relative;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .my-20 {
   margin-top: 5rem;
   margin-bottom: 5rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mt-20 {
@@ -537,10 +546,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 3rem;
 }
 
-.w-\[90\%\] {
-  width: 90%;
-}
-
 .w-\[40\%\] {
   width: 40%;
 }
@@ -569,13 +574,129 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 3rem;
 }
 
+.w-\[40rem\] {
+  width: 40rem;
+}
+
+.w-\[768px\] {
+  width: 768px;
+}
+
+.w-\[20rem\] {
+  width: 20rem;
+}
+
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-\[1024px\] {
+  width: 1024px;
+}
+
+.min-w-min {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.min-w-\[600px\] {
+  min-width: 600px;
+}
+
+.min-w-\[768px\] {
+  min-width: 768px;
+}
+
+.min-w-\[20rem\] {
+  min-width: 20rem;
+}
+
 .max-w-\[1070px\] {
   max-width: 1070px;
+}
+
+.shrink {
+  flex-shrink: 1;
 }
 
 .-rotate-90 {
   --tw-rotate: -90deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@-webkit-keyframes expand {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+
+  70% {
+    height: 72px;
+  }
+
+  100% {
+    height: 64px;
+    opacity: 1;
+  }
+}
+
+@keyframes expand {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+
+  70% {
+    height: 72px;
+  }
+
+  100% {
+    height: 64px;
+    opacity: 1;
+  }
+}
+
+.animate-height-enter {
+  -webkit-animation: expand 0.5s linear;
+          animation: expand 0.5s linear;
+}
+
+@-webkit-keyframes shrink {
+  0% {
+    height: 64px;
+  }
+
+  40% {
+    height: 72px;
+  }
+
+  70%, 100% {
+    height: 0px;
+    opacity: 0;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    height: 64px;
+  }
+
+  40% {
+    height: 72px;
+  }
+
+  70%, 100% {
+    height: 0px;
+    opacity: 0;
+  }
+}
+
+.animate-height-exit {
+  -webkit-animation: shrink 1s linear;
+          animation: shrink 1s linear;
 }
 
 .cursor-pointer {
@@ -613,6 +734,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-between {
   justify-content: space-between;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 
 .rounded {
@@ -794,4 +923,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus-visible\:ring-blue-500:focus-visible {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+
+@media (min-width: 768px) {
+  .md\:w-full {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:w-\[90\%\] {
+    width: 90%;
+  }
 }

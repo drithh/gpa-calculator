@@ -35,16 +35,18 @@ const addRow = () => {
     nama.value = '';
 
     const row = setRow(rowData);
-    document.querySelector('.table-body').innerHTML += row;
+    console.log(row);
+    document.querySelector('.table-body').appendChild(row);
 
     updateGPA();
   }
 };
 
 const setRow = (rowData) => {
-  return `
+  const template = document.createElement('div');
+  template.innerHTML = `
     <div
-      class="item-table flex h-16 px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50"
+      class="item-table flex h-16  px-4 place-items-center border-b-secondary border-b-[1px] border-opacity-50 animate-height-enter "
     >
       <div
         class="font-Source text-base text-primary opacity-80 text-center w-[40%]"
@@ -74,10 +76,13 @@ const setRow = (rowData) => {
         </button>
       </div>
     </div>
-  `;
+  `.trim();
+  return template.firstChild;
 };
 
-const deleteRow = (row) => {
+const deleteRow = async (row) => {
+  row.parentNode.parentNode.classList.add('animate-height-exit');
+  await new Promise((r) => setTimeout(r, 700));
   row.parentNode.parentNode.remove();
   updateGPA();
 };
